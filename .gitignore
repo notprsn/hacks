@@ -9,3 +9,6 @@ cleaned_msgs.txt
 .matplotlib-cache/
 workspace/spectrogram_word/generated_audio/
 workspace/spectrogram_word/spectrogram_renders/
+
+# Downloaded media is local runtime state, not Clippy source.
+clippy/.clippy_cache/
