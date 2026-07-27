@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clippy — cut the exact bit of the song</title>
+  <meta name="description" content="Highlight a line of lyrics, get an mp3 of exactly that bit of the song. A Bollywoodle side-toy.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%8E%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+  <div class="glow"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <!-- Clippy: a warm bollywoodle-gold paperclip with a face -->
+      <svg class="clip" viewBox="0 0 64 96" width="34" height="52" aria-hidden="true">
+        <path d="M20 30 v34 a12 12 0 0 0 24 0 V22 a18 18 0 0 0 -36 0 v42 a24 24 0 0 0 48 0 V34"
+              fill="none" stroke="var(--accent)" stroke-width="6" stroke-linecap="round"/>
+        <circle cx="27" cy="40" r="3.2" fill="var(--dark-bg)"/>
+        <circle cx="41" cy="40" r="3.2" fill="var(--dark-bg)"/>
+        <path d="M27 49 q7 6 14 0" fill="none" stroke="var(--dark-bg)" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <h1>Clippy</h1>
+        <p class="tag">highlight a line &rarr; get an mp3 of <em>exactly</em> that bit</p>
+      </div>
+    </div>
+    <div id="helper" class="helper helper--checking" title="the local helper does the downloading + cutting" aria-live="polite">
+      <span class="dot"></span><span class="txt">checking helper…</span>
+    </div>
+  </header>
+
+  <main>
+    <section id="setupCard" class="card setup-card">
+      <label class="step">start here · one-time setup</label>
+      <h2>Get the helper. Run it. Come back here.</h2>
+      <p class="setup-intro">Clippy cuts songs on your laptop, so this page needs one tiny local helper.</p>
+      <ol class="setup-steps">
+        <li>
+          <span class="setup-number">1</span>
+          <div>
+            <a class="setup-download" href="downloads/clippy.zip" download>⬇ Download Clippy</a>
+            <small>Unzip the download, then open the <code>clippy</code> folder.</small>
+          </div>
+        </li>
+        <li>
+          <span class="setup-number">2</span>
+          <div>
+            <strong id="launcherAction">Run the launcher</strong>
+            <small id="launcherHelp">Use the launcher for your operating system.</small>
+          </div>
+        </li>
+        <li>
+          <span class="setup-number">3</span>
+          <div>
+            <strong>Keep the launcher window open.</strong>
+            <small>This page will open automatically and the helper pill will turn green.</small>
+          </div>
+        </li>
+      </ol>
+      <p class="setup-note">First launch: usually 1–3 minutes. Later launches: a few seconds.</p>
+      <p class="python-note">
+        The launcher installs everything except Python 3.10+.
+        <a href="https://www.python.org/downloads/" target="_blank" rel="noopener">Get Python</a>
+        only if it says Python is missing.
+      </p>
+      <details class="other-setup">
+        <summary>prefer Git?</summary>
+        <p>Clone only the Clippy folder:</p>
+        <pre><code>git clone --depth 1 --filter=blob:none --sparse https://github.com/notprsn/hacks.git
+cd hacks
+git sparse-checkout set clippy
+cd clippy</code></pre>
+      </details>
+    </section>
+
+    <!-- 1. find the song -->
+    <section class="card">
+      <label class="step">1 · find the song</label>
+      <form id="searchForm" class="searchrow" autocomplete="off">
+        <input id="q" type="text" placeholder="song name — e.g. Kal Ho Naa Ho" spellcheck="false">
+        <button id="searchBtn" type="submit">search</button>
+      </form>
+      <div id="results" class="results"></div>
+    </section>
+
+    <!-- 2. highlight the bit -->
+    <section id="pickSection" class="card hidden">
+      <label class="step">2 · highlight the bit</label>
+      <div id="nowPicking" class="now-picking"></div>
+      <p class="hint">click the <b>first</b> line, then the <b>last</b> line of the part you want.</p>
+      <div id="lyrics" class="lyrics"></div>
+    </section>
+
+    <!-- 3. cut it -->
+    <section id="cutSection" class="card hidden">
+      <label class="step">3 · cut it</label>
+      <div class="cutrow">
+        <div id="selInfo" class="sel-info">nothing selected yet</div>
+        <label class="fade"><input id="fade" type="checkbox" checked> smooth edges</label>
+        <button id="cutBtn" type="button" disabled>✂️  cut it</button>
+      </div>
+      <details class="advanced">
+        <summary>wrong recording? paste a YouTube link</summary>
+        <input id="ytUrl" type="text" placeholder="https://youtube.com/watch?v=… (optional override)" spellcheck="false">
+      </details>
+      <div id="output" class="output hidden"></div>
+    </section>
+  </main>
+
+  <footer>
+    <span>
+      a <a href="https://bollywoodle.app" target="_blank" rel="noopener">Bollywoodle</a> side-toy ·
+      <a href="https://github.com/notprsn/hacks/tree/main/clippy" target="_blank" rel="noopener">source</a> ·
+      runs on your laptop
+    </span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

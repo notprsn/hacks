@@ -1,0 +1,3 @@
+.clippy_cache/
+.venv/
+__pycache__/
