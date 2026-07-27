@@ -4,3 +4,8 @@ __pycache__/
 # Private WhatsApp exports and their cleaned output.
 msgs.txt
 cleaned_msgs.txt
+
+# Regenerable spectrogram output.
+.matplotlib-cache/
+workspace/spectrogram_word/generated_audio/
+workspace/spectrogram_word/spectrogram_renders/
