@@ -42,7 +42,15 @@ git sparse-checkout set clippy
 cd clippy
 ```
 
-Then run the launcher for your operating system.
+Then start the helper:
+
+```bash
+# Mac or Linux
+bash start-clippy.sh
+
+# Windows PowerShell
+.\start-clippy.bat
+```
 
 ## What runs where?
 
