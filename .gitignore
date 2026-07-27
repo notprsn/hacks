@@ -1,2 +1,6 @@
+__pycache__/
+.DS_Store
+
+# Private WhatsApp exports and their cleaned output.
 msgs.txt
 cleaned_msgs.txt
